@@ -1,3 +1,2 @@
-######
-#Benchmark de soluciones en contenedores
+# Benchmark de soluciones en contenedores
 
