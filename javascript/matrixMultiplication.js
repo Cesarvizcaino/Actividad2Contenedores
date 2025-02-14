@@ -15,7 +15,7 @@ function matrixMultiply() {
     }
     
     const endTime = performance.now();
-    console.log(`Tiempo de ejecución en JavaScript: ${(endTime - startTime)/1000} segundos`);
+    console.log(`Tiempo de ejecución en JavaScript: ${endTime - startTime} ms`);
 }
 
 matrixMultiply();
