@@ -1,4 +1,4 @@
-#include <iostream>
+    #include <iostream>
 #include <vector>
 #include <chrono>
 #include <random>
@@ -35,8 +35,8 @@ int main() {
     }
 
     auto end = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff = end - start;
+    auto diff = std::chrono::duration_cast<std::chronomilliseconds>(end - start);
 
-    std::cout << "Tiempo de ejecución en C++: " << diff.count() << " segundos\n";
+    std::cout << "Tiempo ejecución en C++: " << diff() << " ms";
     return 0;
 }
