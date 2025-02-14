@@ -3,4 +3,4 @@
 + Carlos Herrera
 + Cristian Vizcaino
 ## Instalacion:
->> todos los comandos son en una terminal Alpine linux
+> todos los comandos son en una terminal Alpine linux
