@@ -10,7 +10,7 @@ func main() {
     // Establecer la semilla para números aleatorios
     rand.Seed(time.Now().UnixNano())
     
-    N := 2000
+    N := 100
     A := make([][]float64, N)
     B := make([][]float64, N)
     C := make([][]float64, N)

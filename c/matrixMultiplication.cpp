@@ -4,7 +4,7 @@
 #include <random>
 
 int main() {
-    const int N = 2000;
+    const int N = 100;
     std::vector<std::vector<double>> A(N, std::vector<double>(N));
     std::vector<std::vector<double>> B(N, std::vector<double>(N));
     std::vector<std::vector<double>> C(N, std::vector<double>(N, 0.0));

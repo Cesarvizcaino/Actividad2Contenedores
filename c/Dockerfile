@@ -1,5 +1,16 @@
-FROM alpine:latest
+FROM alpine:3.18
+
+
 RUN apk add --no-cache g++ make
+
+
 WORKDIR /app
-RUN g++ -o benchmark matrixMultiplication.cpp
-CMD ["./benchmark"]
+
+
+COPY matrixMultiplication.cpp .
+
+
+RUN g++ -o matrixMultiplication matrixMultiplication.cpp
+
+# Comando para ejecutar el programa
+CMD ["./matrixMultiplication"]

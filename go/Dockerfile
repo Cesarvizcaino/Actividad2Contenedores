@@ -1,5 +1,12 @@
-FROM alpine:latest
-RUN apk add --no-cache go
+
+FROM golang:1.21-alpine
 WORKDIR /app
-RUN go build -o benchmark
-CMD ["./benchmark"]
+
+
+COPY matrixMultiplication.go .
+
+
+RUN go build -o matrixMultiplication matrixMultiplication.go
+
+
+CMD ["./matrixMultiplication"]

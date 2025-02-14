@@ -1,5 +1,5 @@
 function matrixMultiply() {
-    const N = 2000;
+    const N = 100;
     let A = Array.from({length: N}, () => Array.from({length: N}, () => Math.random()));
     let B = Array.from({length: N}, () => Array.from({length: N}, () => Math.random()));
     let C = Array.from({length: N}, () => Array(N).fill(0));

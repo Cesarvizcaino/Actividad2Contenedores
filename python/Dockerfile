@@ -1,4 +1,10 @@
-FROM alpine:latest 
-RUN apk add --no-cache python py3-pip
+
+FROM python:3.11-alpine
+
 WORKDIR /app
-CMD ["python3", "matrixMultiplication.py"]
+
+
+COPY matrixMultiplication.py .
+
+
+CMD ["python", "matrixMultiplication.py"]

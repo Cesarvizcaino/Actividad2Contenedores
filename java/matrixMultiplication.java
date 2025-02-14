@@ -1,6 +1,6 @@
-public class MatrixMultiplication {
+public class matrixMultiplication {
     public static void main(String[] args) {
-        int N = 2000;
+        int N = 100;
         double[][] A = new double[N][N];
         double[][] B = new double[N][N];
         double[][] C = new double[N][N];

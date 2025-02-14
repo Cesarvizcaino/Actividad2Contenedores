@@ -1,15 +1,17 @@
-import numpy as np
 import time
 
-def matrix_multiply():
-    N = 2000
-    A = np.random.rand(N, N)
-    B = np.random.rand(N, N)
+def multiply_matrices(n):
+    A = [[1] * n for _ in range(n)]
+    B = [[1] * n for _ in range(n)]
+    C = [[0] * n for _ in range(n)]
 
-    start_time = time.time()
-    C = np.dot(A, B)
-    end_time = time.time()
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                C[i][j] += A[i][k] * B[k][j]
 
-    print(f"Tiempo de ejecución en Python: {end_time - start_time} segundos")
-
-matrix_multiply()
+n = 100
+start_time = time.time()
+multiply_matrices(n)
+end_time = time.time()
+print(f"Python: Multiplicación de matrices completada en {(end_time - start_time) * 1000:.2f} ms")
