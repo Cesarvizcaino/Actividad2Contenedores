@@ -1,5 +1,5 @@
 FROM alpine:latest
 RUN apk add --no-cache g++ make
-WORKDIR .
+WORKDIR /app
 RUN g++ -o benchmark matrixMultiplication.cpp
 CMD ["./benchmark"]
