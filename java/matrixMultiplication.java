@@ -25,8 +25,8 @@ public class matrixMultiplication {
         }
         
         long endTime = System.nanoTime();
-        double duration = (endTime - startTime) / 1e9;
-        
-        System.out.println("Tiempo de ejecución en Java: " + duration + " segundos");
+        double duration = (endTime - startTime) / 1e6; // Convertir a milisegundos
+
+        System.out.println("Tiempo de ejecución en Java: " + duration + " ms");
     }
 }
