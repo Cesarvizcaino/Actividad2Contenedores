@@ -45,7 +45,7 @@ func main() {
     
     // Mostrar tiempo en diferentes formatos para mayor claridad
     fmt.Printf("Tiempo de ejecución:\n")
-    fmt.Printf("En segundos: %.6f segundos\n", duration.Seconds())
+    
     fmt.Printf("En milisegundos: %.2f ms\n", float64(duration.Milliseconds()))
-    fmt.Printf("En microsegundos: %d µs\n", duration.Microseconds())
+    
 }
