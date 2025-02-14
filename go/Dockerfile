@@ -1,5 +1,5 @@
 FROM alpine:latest
 RUN apk add --no-cache go
-WORKDIR .
+WORKDIR /app
 RUN go build -o benchmark
 CMD ["./benchmark"]
