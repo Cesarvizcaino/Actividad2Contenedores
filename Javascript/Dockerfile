@@ -1,4 +1,4 @@
 FROM alpine:latest
 RUN apk add --no-cache nodejs npm
-WORKDIR .
+WORKDIR /app
 CMD ["node", "matrixMultiplication.js"]
