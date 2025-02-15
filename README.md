@@ -9,5 +9,5 @@
 1. apk add git
 2. git clone https://github.com/Cesarvizcaino/Actividad2Contenedores.git
 3. cd Actividad2Contenedores
-4. chmod +x benchmark.sh
-5. ./benchmark.sh
+4. docker build -t benchmark-test .
+5. docker run --privileged -v /var/run/docker.sock:/var/run/docker.sock benchmark-test
