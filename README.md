@@ -10,7 +10,7 @@ lenguajes en ejecutar la multiplicacion de 2 matrices 100x100
 + Java
 + Python
 + Javascript
-+ Golang
++ Go
 + c++
 ## Instalacion:
 > todos los comandos para una terminal Alpine linux
