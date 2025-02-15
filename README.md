@@ -3,7 +3,7 @@
 + Carlos Herrera
 + Cristian Vizcaino
 ## Descripcion: 
-nos valemos de dockerfiles, para crear imagenes de contenedores
+nos valemos de dockerfiles, para preparar contenedores
 con el fin de hacer un benchmark de cuanto tardan distintos 
 lenguajes en ejecutar la multiplicacion de 2 matrices 100x100
 ## Lenguajes
