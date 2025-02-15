@@ -2,9 +2,9 @@
 ## Integrantes:
 + Carlos Herrera
 + Cristian Vizcaino
-## Descripcion:
-mediante la creacion de contenedores docker, nos valemos de dockerfiles
-para hacer un benchmark de cuanto tardan distintos 
+## Descripcion: 
+nos valemos de dockerfiles, para crear imagenes de contenedores
+con el fin de hacer un benchmark de cuanto tardan distintos 
 lenguajes en ejecutar la multiplicacion de 2 matrices 100x100
 ## Lenguajes
 + Java
