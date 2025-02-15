@@ -11,6 +11,6 @@ COPY matrixMultiplication.cpp .
 
 
 RUN g++ -o matrixMultiplication matrixMultiplication.cpp
-
+RUN chmod +x matrixMultiplication
 # Comando para ejecutar el programa
 CMD ["./matrixMultiplication"]

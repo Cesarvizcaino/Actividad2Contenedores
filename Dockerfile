@@ -1,6 +1,7 @@
 FROM docker:latest
-WORKDIR .
+WORKDIR /app
 COPY . .
+RUN apk add --no-cache bash
 RUN chmod +x benchmark.sh
 CMD ["./benchmark.sh"]
  
