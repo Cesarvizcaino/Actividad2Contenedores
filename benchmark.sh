@@ -16,7 +16,7 @@ run_benchmark() {
     local time
     
     case $lang in
-        "c++")
+        "c")
             time=$(echo "$output" | grep "Tiempo ejecución en C++" | awk '{print $5}')
             ;;
         "go")
