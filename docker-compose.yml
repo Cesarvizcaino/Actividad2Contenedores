@@ -10,7 +10,7 @@ services:
   c:
     build:
       context: ./c
-    image: matrix-c
+    image: matrix-c++
 
   go:
     build:
