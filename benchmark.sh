@@ -15,29 +15,24 @@ run_benchmark() {
     
     case $lang in
         "c")
-            time=$(echo "$output" | grep "Tiempo ejecución en C++" | awk '{print $5}')
+            time=$(echo "$output" | grep "Tiempo" | awk '{print $5}' | tr -d 'ms')
             ;;
         "go")
-            time=$(echo "$output" | grep "En milisegundos:" | awk '{print $3}')
+            time=$(echo "$output" | grep "milisegundos:" | awk '{print $2}' | tr -d 'ms')
             ;;
         "java")
-            time=$(echo "$output" | grep "Tiempo de ejecución en Java:" | awk '{print $6}')
+            time=$(echo "$output" | grep "Java:" | awk '{print $6}' | tr -d 'ms')
             ;;
         "javascript")
-            time=$(echo "$output" | grep "Tiempo de ejecución en JavaScript:" | awk '{print $6}')
+            time=$(echo "$output" | grep "JavaScript:" | awk '{print $5}' | tr -d 'ms')
             ;;
         "python")
             time=$(echo "$output" | grep "Python:" | sed 's/.*completada en \([0-9.]*\) ms.*/\1/')
             ;;
     esac
     
-    # Eliminar "ms" si está presente
-    time=$(echo "$time" | sed 's/ms//')
     echo "$time"
 }
-
-# Ejecutar benchmarks y almacenar resultados
-declare -A times
 
 # Mostrar resultados en tabla
 echo -e "\n=== Resultados del Benchmark ===\n"
@@ -48,7 +43,7 @@ draw_line
 # Ejecutar cada benchmark y mostrar resultado inmediatamente
 for lang in c go java javascript python; do
     time=$(run_benchmark $lang)
-    if [ ! -z "$time" ]; then
+    if [[ $time =~ ^[0-9.]+$ ]]; then
         printf "| %-13s | %16.2f |\n" "$lang" "$time"
     else
         printf "| %-13s | %16s |\n" "$lang" "ERROR"
