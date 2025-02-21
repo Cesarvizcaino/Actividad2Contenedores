@@ -1,10 +1,8 @@
 
-FROM python:3.11-alpine
+
+FROM python:alpine
 
 WORKDIR /app
-
-
 COPY matrixMultiplication.py .
-
 
 CMD ["python", "matrixMultiplication.py"]
