@@ -2,53 +2,69 @@
 
 echo "=== Benchmark de Multiplicación de Matrices ==="
 
-# Lista de lenguajes
-languages=("c" "go" "java" "javascript" "python")
+# Colores para la tabla
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m'
 
-# Array asociativo para almacenar los tiempos
-declare -A times
+# Función para dibujar línea de la tabla
+draw_line() {
+    printf "+---------------+------------------+\n"
+}
 
-# Función para extraer el tiempo de la salida según el lenguaje
-extract_time() {
-    local output=$1
-    local lang=$2
+# Función para ejecutar benchmark
+run_benchmark() {
+    local lang=$1
+    echo "Ejecutando benchmark para $lang..."
+    
+    # Ejecutar contenedor y capturar salida
+    local output=$(docker run --rm "matrix-$lang" 2>&1)
+    
+    # Extraer tiempo según el lenguaje
     case $lang in
-        "c")
+        "c++")
             echo "$output" | grep "Tiempo ejecución en C++" | awk '{print $5}'
             ;;
         "go")
             echo "$output" | grep "En milisegundos:" | awk '{print $3}'
             ;;
         "java")
-            echo "$output" | grep -o '[0-9]\+\.[0-9]* ms' | grep -o '[0-9]\+\.[0-9]*'
+            echo "$output" | grep "Tiempo de ejecución en Java:" | awk '{print $6}'
             ;;
         "javascript")
-            echo "$output" | grep -o '[0-9]\+\.[0-9]* ms' | grep -o '[0-9]\+\.[0-9]*'
+            echo "$output" | grep "Tiempo de ejecución en JavaScript:" | awk '{print $5}'
             ;;
         "python")
-            echo "$output" | grep -o '[0-9]\+\.[0-9]* ms' | grep -o '[0-9]\+\.[0-9]*'
+            echo "$output" | grep "Python:" | awk '{print $6}'
             ;;
     esac
 }
 
-# Construir y ejecutar cada contenedor
-for lang in "${languages[@]}"; do
-    echo -e "\n=== Ejecutando $lang ==="
-    docker build -t matrix-$lang ./$lang
-    result=$(docker run --rm matrix-$lang)
-    echo "$result"
-    time=$(extract_time "$result" "$lang")
-    times[$lang]=$time
+# Construir imágenes
+echo "Construyendo imágenes..."
+for lang in c++ go java javascript python; do
+    docker build -t "matrix-$lang" "./$lang"
 done
 
-# Imprimir tabla de resultados
-echo -e "\n=== Tabla Comparativa ==="
-echo "+--------------+-----------------+"
-echo "| Lenguaje     | Tiempo (ms)    |"
-echo "+--------------+-----------------+"
-for lang in "${languages[@]}"; do
-    printf "| %-12s | %13.2f |\n" "$lang" "${times[$lang]}"
-done
-echo "+--------------+-----------------+"
+# Array asociativo para almacenar resultados
+declare -A results
 
-echo -e "\n=== Benchmark Completado ==="
+# Ejecutar benchmarks
+for lang in c++ go java javascript python; do
+    results[$lang]=$(run_benchmark $lang)
+done
+
+# Mostrar resultados en tabla
+echo -e "\n=== Resultados del Benchmark ===\n"
+draw_line
+printf "| %-13s | %-16s |\n" "Lenguaje" "Tiempo (ms)"
+draw_line
+
+# Ordenar resultados por tiempo
+for lang in $(for k in "${!results[@]}"; do echo "$k ${results[$k]}"; done | sort -k2n); do
+    name=${lang% *}
+    time=${results[$name]}
+    printf "| %-13s | %16.2f |\n" "$name" "$time"
+done
+
+draw_line
