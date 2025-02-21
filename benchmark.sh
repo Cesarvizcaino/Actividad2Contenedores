@@ -23,21 +23,33 @@ run_benchmark() {
     
     case $lang in
         "c")
-            time=$(echo "$output" | grep "Tiempo" | awk '{print $NF}')
+            # "Tiempo ejecución en C++: X ms"
+            time=$(echo "$output" | grep "Tiempo ejecución en C++" | awk '{print $5}')
             ;;
         "go")
-            time=$(echo "$output" | grep "milisegundos" | awk '{print $NF}')
+            # "En milisegundos: X.XX ms"
+            time=$(echo "$output" | grep "En milisegundos:" | awk '{print $3}')
             ;;
         "java")
-            time=$(echo "$output" | grep "Tiempo" | awk '{print $NF}')
+            # "Tiempo de ejecución en Java: X ms"
+            time=$(echo "$output" | grep "Tiempo de ejecución en Java:" | awk '{print $6}')
             ;;
         "javascript")
-            time=$(echo "$output" | grep "Tiempo" | awk '{print $NF}')
+            # "Tiempo de ejecución en JavaScript: X ms"
+            time=$(echo "$output" | grep "Tiempo de ejecución en JavaScript:" | awk '{print $5}')
             ;;
         "python")
-            time=$(echo "$output" | grep "Tiempo" | awk '{print $NF}')
+            # "Python: Multiplicación de matrices completada en X.XX ms"
+            time=$(echo "$output" | grep "Python:" | awk '{print $(NF-1)}')
             ;;
     esac
+    
+    # Si no se encontró el tiempo, mostrar el output para debug
+    if [ -z "$time" ]; then
+        echo "Debug - Output completo para $lang:"
+        echo "$output"
+        return 1
+    fi
     
     echo "$time"
 }
@@ -69,8 +81,10 @@ draw_line
 
 # Ordenar y mostrar resultados
 for lang in "${!results[@]}"; do
-    if [[ ! -z "${results[$lang]}" ]]; then
-        printf "| %-13s | %16.2f |\n" "$lang" "${results[$lang]}"
+    if [[ ! -z "${results[$lang]}" && "${results[$lang]}" != *"Debug"* ]]; then
+        # Eliminar "ms" del final si existe
+        time_value=${results[$lang]%% ms}
+        printf "| %-13s | %16.2f |\n" "$lang" "$time_value"
     fi
 done
 
