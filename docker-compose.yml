@@ -5,29 +5,25 @@ services:
     build: .
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - .:/benchmark
     privileged: true
 
   c:
-    build:
-      context: ./c
-    image: matrix-c++
+    build: ./c
+    image: matrix-c
 
   go:
-    build:
-      context: ./go
+    build: ./go
     image: matrix-go
 
   java:
-    build:
-      context: ./java
+    build: ./java
     image: matrix-java
 
   javascript:
-    build:
-      context: ./javascript
+    build: ./javascript
     image: matrix-javascript
 
   python:
-    build:
-      context: ./python
+    build: ./python
     image: matrix-python
