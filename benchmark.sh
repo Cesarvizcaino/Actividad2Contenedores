@@ -7,47 +7,29 @@ draw_line() {
     echo "+---------------+------------------+"
 }
 
-# Función para ejecutar benchmark y extraer tiempo
-run_benchmark() {
-    local lang=$1
-    local output=$(docker run --rm "matrix-$lang" 2>&1)
-    local time
-    
-    case $lang in
-        "c")
-            time=$(echo "$output" | grep "Tiempo" | awk '{print $5}' | tr -d 'ms')
-            ;;
-        "go")
-            time=$(echo "$output" | grep "milisegundos:" | awk '{print $2}' | tr -d 'ms')
-            ;;
-        "java")
-            time=$(echo "$output" | grep "Java:" | awk '{print $6}' | tr -d 'ms')
-            ;;
-        "javascript")
-            time=$(echo "$output" | grep "JavaScript:" | awk '{print $5}' | tr -d 'ms')
-            ;;
-        "python")
-            time=$(echo "$output" | grep "Python:" | sed 's/.*completada en \([0-9.]*\) ms.*/\1/')
-            ;;
-    esac
-    
-    echo "$time"
-}
-
-# Mostrar resultados en tabla
-echo -e "\n=== Resultados del Benchmark ===\n"
+# Mostrar encabezado de la tabla
 draw_line
 echo "| Lenguaje       |     Tiempo (ms)   |"
 draw_line
 
-# Ejecutar cada benchmark y mostrar resultado inmediatamente
-for lang in c go java javascript python; do
-    time=$(run_benchmark $lang)
-    if [[ $time =~ ^[0-9.]+$ ]]; then
-        printf "| %-13s | %16.2f |\n" "$lang" "$time"
-    else
-        printf "| %-13s | %16s |\n" "$lang" "ERROR"
-    fi
-done
+# C++
+time_c=$(docker run --rm matrix-c | grep "Tiempo" | awk '{print $5}' | sed 's/ms//')
+printf "| %-13s | %16s |\n" "C++" "$time_c"
+
+# Go
+time_go=$(docker run --rm matrix-go | grep "milisegundos:" | awk '{print $3}' | sed 's/ms//')
+printf "| %-13s | %16s |\n" "Go" "$time_go"
+
+# Java
+time_java=$(docker run --rm matrix-java | grep "Java:" | awk '{print $6}' | sed 's/ms//')
+printf "| %-13s | %16s |\n" "Java" "$time_java"
+
+# JavaScript
+time_js=$(docker run --rm matrix-javascript | grep "JavaScript:" | awk '{print $6}' | sed 's/ms//')
+printf "| %-13s | %16s |\n" "JavaScript" "$time_js"
+
+# Python
+time_python=$(docker run --rm matrix-python | grep "Python:" | sed 's/.*completada en \([0-9.]*\) ms.*/\1/')
+printf "| %-13s | %16s |\n" "Python" "$time_python"
 
 draw_line
