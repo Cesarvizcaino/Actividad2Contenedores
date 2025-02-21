@@ -1,12 +1,9 @@
 
-FROM golang:1.21-alpine
+FROM golang:alpine
+
 WORKDIR /app
-
-
 COPY matrixMultiplication.go .
 
-
 RUN go build -o matrixMultiplication matrixMultiplication.go
-
 
 CMD ["./matrixMultiplication"]
