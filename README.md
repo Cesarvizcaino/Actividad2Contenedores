@@ -6,6 +6,8 @@
 nos valemos de dockerfiles, para preparar contenedores
 con el fin de hacer un benchmark de cuanto tardan distintos 
 lenguajes en ejecutar la multiplicacion de 2 matrices 100x100
+## Mejora:
+se usa docker compose para que la construccion del entorno de ejecucion sea mucho mas automatizada y elimine la necesidad de usar comandos para docker run individuales, de tal manera estan mejor configurados los contenedores y nos aseguramos de que se construyan de manera consistente.
 ## Lenguajes
 + Java
 + Python
